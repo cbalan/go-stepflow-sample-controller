@@ -2,9 +2,9 @@ package sample
 
 import (
 	"context"
-	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
 	"github.com/cbalan/go-stepflow"
+	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 func step1(ctx context.Context) error {

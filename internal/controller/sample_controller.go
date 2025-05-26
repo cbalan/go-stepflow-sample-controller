@@ -19,6 +19,8 @@ package controller
 import (
 	"context"
 
+	"github.com/cbalan/go-stepflow"
+	samplestepflow "github.com/cbalan/go-stepflow-sample-controller/internal/stepflow/sample"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -30,7 +32,8 @@ import (
 // SampleReconciler reconciles a Sample object
 type SampleReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
+	Scheme   *runtime.Scheme
+	stepflow stepflow.StepFlow
 }
 
 // +kubebuilder:rbac:groups=sample.stepflow,resources=samples,verbs=get;list;watch;create;update;patch;delete
@@ -47,15 +50,58 @@ type SampleReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.21.0/pkg/reconcile
 func (r *SampleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = logf.FromContext(ctx)
+	log := logf.FromContext(ctx)
 
-	// TODO(user): your logic here
+	var sample samplev1alpha1.Sample
+	if err := r.Get(ctx, req.NamespacedName, &sample); err != nil {
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	oldState := sample.Status.State
+
+	// stepflow is complete. Job done.
+	if r.stepflow.IsCompleted(oldState) {
+		return ctrl.Result{}, nil
+	}
+
+	log.Info("Reconciling Sample", "oldState", oldState)
+
+	newState, err := r.stepflow.Apply(ctx, oldState)
+	if err != nil {
+		return ctrl.Result{}, err
+	}
+
+	sample.Status.State = newState
+	if err := r.Status().Update(ctx, &sample); err != nil {
+		return ctrl.Result{}, err
+	}
+
+	log.Info("Applied sample stepflow", "oldState", oldState, "newState", newState)
 
 	return ctrl.Result{}, nil
 }
 
+// SetupStepFlow sets up the controller sample stepflow.
+func (r *SampleReconciler) SetupStepFlow() error {
+	if r.stepflow != nil {
+		return nil
+	}
+
+	flow, err := samplestepflow.NewStepFlow()
+	if err != nil {
+		return err
+	}
+	r.stepflow = flow
+
+	return nil
+}
+
 // SetupWithManager sets up the controller with the Manager.
 func (r *SampleReconciler) SetupWithManager(mgr ctrl.Manager) error {
+	if err := r.SetupStepFlow(); err != nil {
+		return err
+	}
+
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&samplev1alpha1.Sample{}).
 		Named("sample").

@@ -3,6 +3,7 @@ module github.com/cbalan/go-stepflow-sample-controller
 go 1.24.0
 
 require (
+	github.com/cbalan/go-stepflow v0.0.0-20250519102917-2fde9eabe3af
 	github.com/onsi/ginkgo/v2 v2.22.0
 	github.com/onsi/gomega v1.36.1
 	k8s.io/apimachinery v0.33.0

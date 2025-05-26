@@ -34,6 +34,8 @@ type SampleSpec struct {
 
 // SampleStatus defines the observed state of Sample.
 type SampleStatus struct {
+	State []string `json:"state,omitempty"`
+
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }

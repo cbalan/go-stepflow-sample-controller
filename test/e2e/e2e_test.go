@@ -34,13 +34,13 @@ import (
 const namespace = "github-go-stepflow-sample-controller-system"
 
 // serviceAccountName created for the project
-const serviceAccountName = "github-go-stepflow-sample-controller-controller-manager"
+const serviceAccountName = "sample-controller-controller-manager"
 
 // metricsServiceName is the name of the metrics service of the project
-const metricsServiceName = "github-go-stepflow-sample-controller-controller-manager-metrics-service"
+const metricsServiceName = "sample-controller-controller-manager-metrics-service"
 
 // metricsRoleBindingName is the name of the RBAC that will be created to allow get the metrics data
-const metricsRoleBindingName = "github-go-stepflow-sample-controller-metrics-binding"
+const metricsRoleBindingName = "sample-controller-metrics-binding"
 
 var _ = Describe("Manager", Ordered, func() {
 	var controllerPodName string

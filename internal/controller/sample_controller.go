@@ -52,8 +52,8 @@ type SampleReconciler struct {
 func (r *SampleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	log := logf.FromContext(ctx)
 
-	var sample samplev1alpha1.Sample
-	if err := r.Get(ctx, req.NamespacedName, &sample); err != nil {
+	sample := &samplev1alpha1.Sample{}
+	if err := r.Get(ctx, req.NamespacedName, sample); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
@@ -72,7 +72,7 @@ func (r *SampleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	}
 
 	sample.Status.State = newState
-	if err := r.Status().Update(ctx, &sample); err != nil {
+	if err := r.Status().Update(ctx, sample); err != nil {
 		return ctrl.Result{}, err
 	}
 

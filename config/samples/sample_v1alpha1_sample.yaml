@@ -1,0 +1,9 @@
+apiVersion: sample.stepflow/v1alpha1
+kind: Sample
+metadata:
+  labels:
+    app.kubernetes.io/name: github-go-stepflow-sample-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: sample-sample
+spec:
+  # TODO(user): Add fields here

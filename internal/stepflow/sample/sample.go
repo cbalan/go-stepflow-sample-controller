@@ -3,18 +3,18 @@ package sample
 import (
 	"context"
 	"fmt"
-	"k8s.io/utils/clock"
 	"time"
 
 	"github.com/cbalan/go-stepflow"
 	"github.com/cbalan/go-stepflow-sample-controller/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	clockutil "k8s.io/utils/clock"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 type Exchange struct {
-	Clock  clock.Clock
+	Clock  clockutil.Clock
 	Sample *v1alpha1.Sample
 	Result ctrl.Result
 }
@@ -36,7 +36,7 @@ func FromContext(ctx context.Context) (*Exchange, error) {
 	return ex, nil
 }
 
-func NewExchange(clock clock.Clock, sample *v1alpha1.Sample) *Exchange {
+func NewExchange(clock clockutil.Clock, sample *v1alpha1.Sample) *Exchange {
 	return &Exchange{Clock: clock, Sample: sample}
 }
 
@@ -59,7 +59,7 @@ func someTimeToPass(ctx context.Context) (bool, error) {
 
 	// Done if more than 30 seconds went by after creation time.
 	timeoutTime := metav1.NewTime(ex.Clock.Now().Add(-1 * 30 * time.Second))
-	creationTime := ex.Sample.ObjectMeta.CreationTimestamp
+	creationTime := ex.Sample.CreationTimestamp
 	isDone := !timeoutTime.Before(&creationTime)
 
 	// Requeue hint.

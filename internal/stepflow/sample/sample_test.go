@@ -2,9 +2,10 @@ package sample
 
 import (
 	"context"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"testing"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	samplev1alpha1 "github.com/cbalan/go-stepflow-sample-controller/api/v1alpha1"
 	. "github.com/onsi/ginkgo/v2"
@@ -36,7 +37,7 @@ var _ = Describe("Sample stepflow", func() {
 			It("returns false", func() {
 				clock := clocktesting.NewFakeClock(time.Now())
 				sample := &samplev1alpha1.Sample{}
-				sample.ObjectMeta.CreationTimestamp = metav1.NewTime(clock.Now())
+				sample.CreationTimestamp = metav1.NewTime(clock.Now())
 
 				ex := NewExchange(clock, sample)
 
@@ -51,7 +52,7 @@ var _ = Describe("Sample stepflow", func() {
 			It("returns true", func() {
 				clock := clocktesting.NewFakeClock(time.Now())
 				sample := &samplev1alpha1.Sample{}
-				sample.ObjectMeta.CreationTimestamp = metav1.NewTime(clock.Now())
+				sample.CreationTimestamp = metav1.NewTime(clock.Now())
 
 				// Advance clock.
 				clock.Step(30 * time.Second)

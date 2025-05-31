@@ -18,8 +18,9 @@ package controller
 
 import (
 	"context"
-	"k8s.io/utils/clock"
 	"time"
+
+	"k8s.io/utils/clock"
 
 	"github.com/cbalan/go-stepflow"
 	"k8s.io/apimachinery/pkg/api/meta"

@@ -20,6 +20,15 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+const (
+	CompletedCondition string = "Completed"
+)
+
+const (
+	SuccessReason string = "Success"
+	ErrorReason   string = "Error"
+)
+
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
@@ -35,6 +44,9 @@ type SampleSpec struct {
 // SampleStatus defines the observed state of Sample.
 type SampleStatus struct {
 	State []string `json:"state,omitempty"`
+
+	// Conditions holds the conditions for the Sample resource.
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file

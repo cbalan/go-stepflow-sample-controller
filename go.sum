@@ -10,6 +10,8 @@ github.com/cbalan/go-stepflow v0.0.0-20250519102917-2fde9eabe3af h1:nWBwuSBK/zqX
 github.com/cbalan/go-stepflow v0.0.0-20250519102917-2fde9eabe3af/go.mod h1:kWyDpFo1an0wfM4jltkeOoJKCH5Fv0ryKvKDLLr8UL4=
 github.com/cbalan/go-stepflow v0.0.0-20250712231229-60b11d4b1668 h1:h9uA0QF8w54ZSfLQ0V8BmOVRSyEq3U/ZKrxeQudHiyo=
 github.com/cbalan/go-stepflow v0.0.0-20250712231229-60b11d4b1668/go.mod h1:kWyDpFo1an0wfM4jltkeOoJKCH5Fv0ryKvKDLLr8UL4=
+github.com/cbalan/go-stepflow v0.0.0-20250714170751-ed3e51868fd2 h1:Xv9Go9TiwP2SJ52ucMMmZaRpXbPKjx7jWOrQKSCKwy4=
+github.com/cbalan/go-stepflow v0.0.0-20250714170751-ed3e51868fd2/go.mod h1:kWyDpFo1an0wfM4jltkeOoJKCH5Fv0ryKvKDLLr8UL4=
 github.com/cenkalti/backoff/v4 v4.3.0 h1:MyRJ/UdXutAwSAT+s3wNd7MfTIcy71VQueUuFK343L8=
 github.com/cenkalti/backoff/v4 v4.3.0/go.mod h1:Y3VNntkOUPxTVeUxJ/G5vcM//AlwfmyYozVcomhLiZE=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=

@@ -1,2 +1,2 @@
 # go-stepflow-sample-controller
-Sample Kubernetes controller created with kubebuilder and go-stepflow
+Content moved to [cbalan/go-stepflow-examples](https://github.com/cbalan/go-stepflow-examples)
